@@ -316,7 +316,13 @@ td.round-actions { padding: 6px; }
 /* ---------- Modal ---------- */
 .modal-backdrop {
   position: fixed;
-  inset: 0;
+  left: 0;
+  width: 100%;
+  /* Track the visual viewport (set via JS) instead of the full layout
+     viewport, so the sheet — and its buttons — stay above the iOS
+     keyboard instead of being sized as if the keyboard weren't there. */
+  top: var(--vv-top, 0px);
+  height: var(--vv-height, 100dvh);
   background: rgba(10, 14, 12, 0.45);
   display: flex;
   align-items: flex-end;
@@ -332,7 +338,7 @@ td.round-actions { padding: 6px; }
   border-radius: 20px 20px 0 0;
   padding: 20px 20px calc(20px + var(--safe-bottom));
   box-shadow: var(--shadow);
-  max-height: 88vh;
+  max-height: min(88vh, calc(var(--vv-height, 100dvh) - 24px));
   overflow-y: auto;
 }
 @media (min-width: 560px) {
@@ -360,7 +366,7 @@ td.round-actions { padding: 6px; }
   font-size: 1rem;
   font-family: inherit;
 }
-.modal textarea { min-height: 140px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+.modal textarea { min-height: 140px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 16px; }
 .modal .radio-row { display: flex; gap: 10px; margin-top: 6px; }
 .modal .radio-row label {
   flex: 1;

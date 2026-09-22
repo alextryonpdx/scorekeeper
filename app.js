@@ -78,14 +78,56 @@ function toast(msg) {
 const backdrop = document.getElementById('modal-backdrop');
 const modalEl = document.getElementById('modal');
 
+/*
+ * iOS Safari doesn't shrink the layout viewport when the on-screen keyboard
+ * opens — it just overlays it — so a `position: fixed; inset: 0` sheet ends
+ * up sized as if the keyboard weren't there, and its lower buttons land
+ * underneath it (untappable). We track the actual visible area via the
+ * VisualViewport API and feed it in as CSS vars the backdrop sizes itself to.
+ */
+function syncViewportVars() {
+  const vv = window.visualViewport;
+  const height = vv ? vv.height : window.innerHeight;
+  const top = vv ? vv.offsetTop : 0;
+  document.documentElement.style.setProperty('--vv-height', `${height}px`);
+  document.documentElement.style.setProperty('--vv-top', `${top}px`);
+}
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', syncViewportVars);
+  window.visualViewport.addEventListener('scroll', syncViewportVars);
+}
+window.addEventListener('orientationchange', syncViewportVars);
+syncViewportVars();
+
+// Lock background scrolling while a modal is open, so the page can't drift
+// out from under the fixed sheet when the keyboard shows and hides.
+let lockedScrollY = 0;
+function lockBodyScroll() {
+  lockedScrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${lockedScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+}
+function unlockBodyScroll() {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  window.scrollTo(0, lockedScrollY);
+}
+
 function openModal(html, onMount) {
   modalEl.innerHTML = html;
   backdrop.hidden = false;
+  lockBodyScroll();
+  syncViewportVars();
   if (onMount) onMount(modalEl);
 }
 function closeModal() {
   backdrop.hidden = true;
   modalEl.innerHTML = '';
+  unlockBodyScroll();
 }
 backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
 
