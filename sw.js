@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gin-scorekeeper-v1';
+const CACHE_NAME = 'gin-scorekeeper-v2';
 const ASSETS = [
   './',
   './index.html',
