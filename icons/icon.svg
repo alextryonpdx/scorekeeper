@@ -10,10 +10,18 @@
       <rect width="210" height="294" rx="18" fill="#fdfdfc" stroke="#d9dfda" stroke-width="4"/>
     </g>
 
-    <!-- Small heart used on the two partly-hidden back cards; each instance
-         adds its own letter alongside this -->
-    <g id="back-mark" fill="#d5342f" text-anchor="middle">
-      <text x="172" y="86" font-size="22">♥</text>
+    <!-- Corner marks for the two partly-hidden back cards. Each card only
+         shows a fresh-air corner ~55x55 in its own local space (55 is the
+         translate step between stacked cards below) at the top-left and,
+         mirrored, the bottom-right — so these have to stay small and tucked
+         into that corner to land in the visible sliver on both ends. -->
+    <g id="mark-c" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700" text-anchor="middle">
+      <text x="20" y="34" font-size="26">C</text>
+      <text x="20" y="52" font-size="15">♥</text>
+    </g>
+    <g id="mark-e" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700" text-anchor="middle">
+      <text x="20" y="34" font-size="26">E</text>
+      <text x="20" y="52" font-size="15">♥</text>
     </g>
 
     <!-- Full index mark (letter + heart) for the front card's top-left corner -->
@@ -28,15 +36,15 @@
   <!-- Back card: E -->
   <g transform="translate(206 54)">
     <use href="#card-blank"/>
-    <use href="#back-mark"/>
-    <text x="172" y="52" font-size="36" text-anchor="middle" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">E</text>
+    <use href="#mark-e"/>
+    <use href="#mark-e" transform="rotate(180 105 147)"/>
   </g>
 
   <!-- Middle card: C -->
   <g transform="translate(151 109)">
     <use href="#card-blank"/>
-    <use href="#back-mark"/>
-    <text x="172" y="52" font-size="36" text-anchor="middle" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">C</text>
+    <use href="#mark-c"/>
+    <use href="#mark-c" transform="rotate(180 105 147)"/>
   </g>
 
   <!-- Front card: A (full Ace of Hearts) -->
