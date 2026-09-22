@@ -1,0 +1,16 @@
+{
+  "name": "Gin Scorekeeper",
+  "short_name": "Gin Score",
+  "description": "Keep score for as many games of Gin as you like, with full round-by-round history.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e5c3c",
+  "theme_color": "#0e5c3c",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

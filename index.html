@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gin Scorekeeper</title>
+<meta name="description" content="Keep score for as many games of Gin as you like, with full round-by-round history.">
+<meta name="theme-color" content="#0e5c3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gin Score">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="icon" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- ============ HOME (game list) ============ -->
+<main id="view-home" class="view">
+  <header class="topbar">
+    <h1>🂡 Gin Scorekeeper</h1>
+    <button id="btn-backup-menu" class="icon-btn" title="Backup &amp; restore" aria-label="Backup and restore">⇅</button>
+  </header>
+
+  <div id="game-list" class="game-list"></div>
+
+  <div class="empty-state" id="empty-state" hidden>
+    <p>No games yet.</p>
+    <p class="muted">Start one below — you can create as many as you like, and none of them will step on each other.</p>
+  </div>
+
+  <button id="btn-new-game" class="fab">+ New Game</button>
+</main>
+
+<!-- ============ GAME VIEW ============ -->
+<main id="view-game" class="view" hidden>
+  <header class="topbar">
+    <button id="btn-back" class="icon-btn" aria-label="Back to all games">←</button>
+    <h1 id="game-title" class="editable-title" tabindex="0" role="button" title="Tap to rename">Game</h1>
+    <button id="btn-game-menu" class="icon-btn" aria-label="Game options">⋮</button>
+  </header>
+
+  <div id="winner-banner" class="winner-banner" hidden></div>
+
+  <section class="target-row">
+    <span>Target score:</span>
+    <button id="btn-target" class="chip" title="Tap to set a target score">No target</button>
+  </section>
+
+  <section class="players-panel">
+    <div id="players-scroll" class="players-scroll"></div>
+    <button id="btn-add-player" class="add-player-btn">+ Add player</button>
+  </section>
+
+  <button id="btn-new-round" class="primary-btn" disabled>Record a Round</button>
+
+  <section class="history">
+    <div class="history-head">
+      <h2>Round history</h2>
+      <button id="btn-undo" class="text-btn" hidden>Undo last round</button>
+    </div>
+    <div class="table-wrap">
+      <table id="history-table">
+        <thead><tr><th class="rownum">#</th></tr></thead>
+        <tbody></tbody>
+        <tfoot><tr class="totals-row"><th>Total</th></tr></tfoot>
+      </table>
+    </div>
+    <p id="history-empty" class="muted history-empty">No rounds recorded yet. Play a hand, then tap "Record a Round".</p>
+  </section>
+</main>
+
+<!-- ============ MODAL: generic dialog host ============ -->
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+  <div id="modal" class="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
