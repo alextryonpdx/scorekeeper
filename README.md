@@ -1,4 +1,4 @@
-# Gin Scorekeeper
+# ACE Scorekeeper
 
 A tiny, no-build web app for keeping score during a game of Gin (or any
 winner-takes-points card game). Built to run great on an iPhone, added to the

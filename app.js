@@ -1,10 +1,13 @@
 'use strict';
 
 /* =========================================================================
-   Gin Scorekeeper
+   ACE Scorekeeper
    All data lives in localStorage. Nothing is ever sent over the network.
    ========================================================================= */
 
+// Kept as-is even though the app's display name has changed — this is an
+// internal storage key, not user-facing, and renaming it would orphan
+// anyone's already-saved games.
 const STORAGE_KEY = 'ginScorekeeper.v1';
 
 /** @typedef {{id:string,name:string,archived?:boolean}} Player */
@@ -596,7 +599,7 @@ function buildBackupText() {
   const payload = { ...state, exportedAt: nowIso(), app: 'gin-scorekeeper', formatVersion: 1 };
   const json = JSON.stringify(payload, null, 2);
   const gameCount = Object.keys(state.games).length;
-  return `GIN SCOREKEEPER BACKUP
+  return `ACE SCOREKEEPER BACKUP
 Exported ${new Date().toLocaleString()}
 Contains ${gameCount} game${gameCount === 1 ? '' : 's'}.
 
@@ -614,7 +617,7 @@ function extractJsonPayload(text) {
   const jsonStr = text.slice(start, end + 1);
   const parsed = JSON.parse(jsonStr);
   if (!parsed || typeof parsed !== 'object' || typeof parsed.games !== 'object') {
-    throw new Error('That doesn\'t look like a Gin Scorekeeper backup.');
+    throw new Error('That doesn\'t look like an ACE Scorekeeper backup.');
   }
   return parsed;
 }
@@ -622,7 +625,7 @@ function extractJsonPayload(text) {
 async function shareOrCopy(text) {
   if (navigator.share) {
     try {
-      await navigator.share({ title: 'Gin Scorekeeper Backup', text, url: appUrl() });
+      await navigator.share({ title: 'ACE Scorekeeper Backup', text, url: appUrl() });
       return 'shared';
     } catch (e) {
       if (e && e.name === 'AbortError') return 'cancelled';

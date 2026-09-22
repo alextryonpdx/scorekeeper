@@ -1,6 +1,6 @@
 {
-  "name": "Gin Scorekeeper",
-  "short_name": "Gin Score",
+  "name": "ACE Scorekeeper",
+  "short_name": "ACE Score",
   "description": "Keep score for as many games of Gin as you like, with full round-by-round history.",
   "start_url": "./index.html",
   "scope": "./",

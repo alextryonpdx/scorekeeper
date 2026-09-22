@@ -4,28 +4,56 @@
       <stop offset="0" stop-color="#1f8a5f"/>
       <stop offset="1" stop-color="#0e5c3c"/>
     </linearGradient>
-    <g id="index-mark" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">
-      <text x="136" y="140" font-size="60" text-anchor="middle">A</text>
-      <text x="136" y="184" font-size="38" text-anchor="middle">♥</text>
+
+    <!-- One reusable "card" (blank, just the white rounded rect + border) -->
+    <g id="card-blank">
+      <rect width="210" height="294" rx="18" fill="#fdfdfc" stroke="#d9dfda" stroke-width="4"/>
+    </g>
+
+    <!-- Small heart used on the two partly-hidden back cards; each instance
+         adds its own letter alongside this -->
+    <g id="back-mark" fill="#d5342f" text-anchor="middle">
+      <text x="172" y="86" font-size="22">♥</text>
+    </g>
+
+    <!-- Full index mark (letter + heart) for the front card's top-left corner -->
+    <g id="front-mark" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">
+      <text x="44" y="58" font-size="46" text-anchor="middle">A</text>
+      <text x="44" y="96" font-size="30" text-anchor="middle">♥</text>
     </g>
   </defs>
 
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
 
-  <!-- card -->
-  <rect x="106" y="66" width="300" height="380" rx="26" fill="#fdfdfc"/>
+  <!-- Back card: E -->
+  <g transform="translate(206 54)">
+    <use href="#card-blank"/>
+    <use href="#back-mark"/>
+    <text x="172" y="52" font-size="36" text-anchor="middle" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">E</text>
+  </g>
 
-  <!-- heart suit, centered -->
-  <path d="M256 352
-           C 176 288, 144 244, 144 197
-           C 144 161, 172 137, 203 137
-           C 226 137, 246 150, 256 170
-           C 266 150, 286 137, 309 137
-           C 340 137, 368 161, 368 197
-           C 368 244, 336 288, 256 352 Z"
-        fill="#d5342f"/>
+  <!-- Middle card: C -->
+  <g transform="translate(151 109)">
+    <use href="#card-blank"/>
+    <use href="#back-mark"/>
+    <text x="172" y="52" font-size="36" text-anchor="middle" fill="#d5342f" font-family="Georgia, 'Times New Roman', serif" font-weight="700">C</text>
+  </g>
 
-  <!-- corner index marks (top-left, and its 180°-rotated mirror at bottom-right) -->
-  <use href="#index-mark"/>
-  <use href="#index-mark" transform="rotate(180 256 256)"/>
+  <!-- Front card: A (full Ace of Hearts) -->
+  <g transform="translate(96 164)">
+    <use href="#card-blank"/>
+
+    <!-- center heart -->
+    <path d="M105 230
+             C 44 182, 18 148, 18 112
+             C 18 84, 40 64, 66 64
+             C 84 64, 99 74, 105 90
+             C 111 74, 126 64, 144 64
+             C 170 64, 192 84, 192 112
+             C 192 148, 166 182, 105 230 Z"
+          fill="#d5342f"/>
+
+    <use href="#front-mark"/>
+    <use href="#front-mark" transform="rotate(180 105 147)"/>
+  </g>
 </svg>
