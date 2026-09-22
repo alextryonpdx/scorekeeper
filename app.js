@@ -586,6 +586,12 @@ document.getElementById('btn-game-menu').addEventListener('click', () => {
 
 /* ============================ BACKUP / RESTORE =========================== */
 
+function appUrl() {
+  // Resolves to the directory the app is running from, so this works
+  // whether it's served from a repo root, a subpath, or localhost.
+  return new URL('.', window.location.href).href;
+}
+
 function buildBackupText() {
   const payload = { ...state, exportedAt: nowIso(), app: 'gin-scorekeeper', formatVersion: 1 };
   const json = JSON.stringify(payload, null, 2);
@@ -594,7 +600,9 @@ function buildBackupText() {
 Exported ${new Date().toLocaleString()}
 Contains ${gameCount} game${gameCount === 1 ? '' : 's'}.
 
-To restore: open Gin Scorekeeper, tap the backup icon, choose "Restore from backup", and paste this entire note back in.
+Open the app: ${appUrl()}
+
+To restore: open that link, tap the backup icon, choose "Restore from backup", and paste this entire note back in.
 
 ${json}`;
 }
@@ -614,7 +622,7 @@ function extractJsonPayload(text) {
 async function shareOrCopy(text) {
   if (navigator.share) {
     try {
-      await navigator.share({ title: 'Gin Scorekeeper Backup', text });
+      await navigator.share({ title: 'Gin Scorekeeper Backup', text, url: appUrl() });
       return 'shared';
     } catch (e) {
       if (e && e.name === 'AbortError') return 'cancelled';
